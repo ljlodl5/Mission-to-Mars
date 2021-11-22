@@ -92,7 +92,6 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
 
-
 if __name__ == "__main__":
 # If running as script, print scraped data
     print(scrape_all())
