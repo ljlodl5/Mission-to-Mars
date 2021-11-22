@@ -99,7 +99,7 @@ def mars_facts():
     return df.to_html(classes="table table-striped")
    
 def mars_hemispheres(browser): 
-    url = 'https://marshemispheres.com/index.html'
+    url = 'https://marshemispheres.com'
     browser.visit(url)
     hemisphere_image_urls = []
 
