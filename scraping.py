@@ -19,8 +19,7 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now(),
-        "hemisphere_image_url": mars_hemispheres(browser)
+        "last_modified": dt.datetime.now()
         }
 
     # Stop webdriver and return data
@@ -100,9 +99,29 @@ def mars_facts():
     return df.to_html(classes="table table-striped")
    
 def mars_hemispheres(browser): 
-    hemisphere_image_urls=[]
-    return hemisphere_image_urls
-    browser.quit()
+    url = 'https://marshemispheres.com/index.html'
+    browser.visit(url)
+    hemisphere_image_urls = []
+
+    for i in range(0,4):
+####Create an empty dictionary, hemispheres = {}, inside the for loop.
+    #create empty dictionary
+        hemispheres = {}
+####Loop through the full-resolution image URL, click the link, find the Sample image anchor tag, and get the href.
+      #a) click on each hemisphere link
+        browser.find_by_css('a.product-item h3')[i].click()
+     #b) navigate to the full-resolution image page,
+        first = browser.find_link_by_text('Sample').first
+    #c) retrieve the full-resolution image URL string and title for the hemisphere image,
+        imageurl = first['href']
+        title = browser.find_by_css("h2.title").text
+   #Before getting the next image URL and title, add the dictionary with the image URL string and the hemisphere image title to the list you created in Step 2.
+   #Save the full-resolution image URL string as the value for the img_url key that will be stored in the dictionary you created 
+        hemispheres["imageurl"] = imageurl
+     #Save the hemisphere image title as the value for the title key that will be stored in the dictionary you created 
+        hemispheres["title"] = title
+        hemisphere_image_urls.append(hemispheres)
+    
 
 if __name__ == "__main__":
     # If running as script, print scraped data
